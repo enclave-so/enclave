@@ -1,0 +1,228 @@
+# Wagmi Integration
+
+Integrate Enclave with your Wagmi project.
+
+::::steps
+
+### Install Enclave
+
+Install the Enclave SDK using your preferred package manager:
+
+:::code-group
+
+```bash [npm]
+npm i @enclave-so/sdk
+```
+
+```bash [pnpm]
+pnpm add @enclave-so/sdk
+```
+
+```bash [yarn]
+yarn add @enclave-so/sdk
+```
+
+```bash [bun]
+bun i @enclave-so/sdk
+```
+
+:::
+
+### Setup Enclave
+
+Add Enclave to your project setup:
+
+```tsx [main.tsx]
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiProvider } from 'wagmi'
+import { config } from './config'
+import { inject } from '@enclave-so/sdk' // [!code hl]
+
+const queryClient = new QueryClient()
+
+inject() // [!code hl]
+
+function App() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        {/** ... */}
+      </QueryClientProvider>
+    </WagmiProvider>
+  )
+}
+```
+
+:::info[Tip]
+You can inject Enclave either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
+:::
+
+### Use Enclave
+
+#### Way 1: Use Enclave without Additional Setup (Recommended)
+
+Enclave is EIP-6963 compatible, so you can use it without any additional setup. Just make sure to announce Enclave:
+
+:::code-group
+
+```tsx [Connectors.tsx]
+import { useConnect } from 'wagmi'
+
+export default function Connectors() {
+  const { connectors, connect } = useConnect()
+
+  return (
+    <>
+      {/* Enclave is one of the connectors */}
+      {connectors.map((connector) => (
+        <div key={connector.id}>
+          <img src={connector.icon} alt={connector.name} width="32" />
+          <button onClick={() => connect({ connector })}>
+            {connector.name}
+          </button>
+        </div>
+      ))}
+    </>
+  )
+}
+```
+
+```tsx [main.tsx]
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiProvider } from 'wagmi'
+import { config } from './config'
+import { inject } from '@enclave-so/sdk'
+
+const queryClient = new QueryClient()
+
+inject({
+  announce: true, // Optional, default is true // [!code hl]
+})
+
+function App() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        {/** ... */}
+      </QueryClientProvider>
+    </WagmiProvider>
+  )
+}
+```
+
+```ts [config.ts]
+import { http, createConfig } from 'wagmi'
+import { mainnet, sepolia } from 'wagmi/chains'
+
+export const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
+  multiInjectedProviderDiscovery: true, // Optional, default is true // [!code hl]
+})
+```
+
+:::
+
+#### Way 2: Add Enclave Connector Directly
+
+Alternatively, configure Enclave directly in your Wagmi setup:
+
+:::code-group
+
+```ts [config.ts]
+import { http, createConfig } from 'wagmi'
+import { mainnet, sepolia } from 'wagmi/chains'
+import { injected } from 'wagmi/connectors'
+import { target } from '@enclave-so/sdk' // [!code hl]
+
+export const config = createConfig({
+  chains: [mainnet, sepolia],
+  connectors: [
+    injected({ target }), // [!code hl]
+  ],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
+  multiInjectedProviderDiscovery: false, // [!code hl]
+})
+```
+
+```tsx [main.tsx]
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiProvider } from 'wagmi'
+import { config } from './config'
+import { inject } from '@enclave-so/sdk'
+
+const queryClient = new QueryClient()
+
+inject({
+  announce: false, // [!code hl]
+})
+
+function App() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        {/** ... */}
+      </QueryClientProvider>
+    </WagmiProvider>
+  )
+}
+```
+
+```tsx [Connectors.tsx]
+import { useConnect } from 'wagmi'
+
+export default function Connectors() {
+  const { connectors, connect } = useConnect()
+
+  return (
+    <>
+      {/* Enclave is one of the connectors */}
+      {connectors.map((connector) => (
+        <div key={connector.id}>
+          <img src={connector.icon} alt={connector.name} width="32" />
+          <button onClick={() => connect({ connector })}>
+            {connector.name}
+          </button>
+        </div>
+      ))}
+    </>
+  )
+}
+```
+
+:::
+
+#### Way 3: Use Enclave Directly
+
+You can also use the Enclave connector directly in your project:
+
+```tsx [Connectors.tsx]
+import { target } from '@enclave-so/sdk'
+import { useConnect } from 'wagmi'
+import { injected } from 'wagmi/connectors'
+
+export default function Connectors() {
+  const { connect } = useConnect()
+
+  const enclave = injected({ target })
+
+  return (
+    <>
+      <div>
+        <img src={target.icon} alt={target.name} width="32" />
+        <button onClick={() => connect({ connector: enclave })}>
+          {target.name}
+        </button>
+      </div>
+    </>
+  )
+}
+```
+
+::::

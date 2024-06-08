@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enclave SDK</title>
+    <meta name="description" content="Enclave SDK" />
+  </head>
+  <body>
+    <noscript>Please, turn on JavaScript to see this page.</noscript>
+    <div id="root" />
+    <script type="module" src="/src/index.ts"></script>
+    <script type="module">
+      import { inject, provider } from '/src/index.ts'
+
+      await inject({
+        url: 'http://localhost:5173',
+        withBadge: true,
+      })
+      const accounts = await provider.request({ method: 'eth_requestAccounts' })
+      console.log(accounts)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+name: Core lint
+on:
+  pull_request:
+    types: [synchronize, opened]
+    paths:
+      - '**'
+      - '!site/**'
+      - '!sdk/**'
+
+jobs:
+  core-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+          cache: 'yarn'
+
+      - name: Install modules
+        shell: bash
+        run: yarn
+
+      - name: Build code
+        shell: bash
+        run: yarn build
+
+      - name: Lint code
+        run: yarn lint
+        shell: bash
