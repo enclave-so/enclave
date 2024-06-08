@@ -59,7 +59,7 @@ jobs:
         with:
           source-directory: site/docs/dist
           destination-github-username: 'danpopenko'
-          destination-repository-name: 'enclave-docs-deploy-test'
+          destination-repository-name: 'enclave-docs-deploy'
           user-email: daniil.popenko@gmail.com
           commit-message: upd
           target-branch: main
