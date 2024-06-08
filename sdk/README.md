@@ -26,7 +26,7 @@ import { inject, provider } from '@enclave-so/sdk'
 await inject() // EIP-6963 announce
 
 // 3. Consume an action
-const accounts = await provider.request({ method: 'eth_accounts' }) // EIP-1193 provider
+const accounts = await provider.request({ method: 'eth_requestAccounts' }) // EIP-1193 provider
 console.log(accounts)
 // ['0x6B944948B5e70e4421034C4C0744A176b0bf9968']
 ```
