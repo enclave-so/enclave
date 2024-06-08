@@ -8,6 +8,7 @@ export default async function (
   name: string,
   props: Record<string, unknown> = {}
 ) {
+  return //TODO: remove when create a proxy
   const properties = {
     ...props,
     distinct_id: trackId,

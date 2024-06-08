@@ -2,6 +2,7 @@
 node_modules
 dist
 stats.html
+.vite
 
 # local env files
 .env
