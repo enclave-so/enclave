@@ -54,6 +54,10 @@ export function inject(options: Partial<Config> = {}) {
   iframe.style.visibility = 'hidden'
   iframe.ariaHidden = 'true'
   iframe.tabIndex = -1
+  // Minimal
+  // iframe.style.display = 'none'
+  // iframe.style.height = '0px'
+  // iframe.style.width = '0px'
 
   // Wait for the iframe to load
   iframe.addEventListener('load', onLoad)
