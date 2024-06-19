@@ -1,6 +1,6 @@
 import { Config } from '../config'
-import { onMessage } from '.'
 import { announceProvider } from 'mipd'
+import { onMessage } from '.'
 import logo from '../logo'
 import provider from '../provider'
 
