@@ -77,7 +77,7 @@ export default function Connectors() {
 :::
 
 :::info[Tip]
-You can announce Enclave provider either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
+You can announce the Enclave provider either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
 :::
 
 #### Way 2: Connector
@@ -144,12 +144,10 @@ export default function Connectors() {
 
   return (
     <>
-      <div>
-        <img src={target.icon} alt={target.name} width="32" />
-        <button onClick={() => connect({ connector: enclave })}>
-          {target.name}
-        </button>
-      </div>
+      <img src={target.icon} alt={target.name} width="32" />
+      <button onClick={() => connect({ connector: enclave })}>
+        {target.name}
+      </button>
     </>
   )
 }
