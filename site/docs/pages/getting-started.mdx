@@ -1,8 +1,8 @@
-# Getting started [Get up and running in under a minute]
+# Getting Started [Get up and running in under a minute]
 
 Enclave is an embedded, open-source, and non-custodial web3 wallet. It integrates with any library (Wagmi, Web3Modal, Ethers, etc.) and allows users to sign messages, send transactions, and interact with smart contracts. **It's free, with no limits or project ID required.**
 
-[Demo](https://demo.enclave.so) | [Wallet](https://app.enclave.so)
+[Demo](https://demo.enclave.so) | [Wallet](https://wallet.enclave.so)
 
 ## Manual Installation
 
@@ -35,7 +35,7 @@ bun i @enclave-so/sdk
 
 ### Usage
 
-That's it! Now you can use Enclave in your dApp. There is 2 ways to use Enclave:
+That’s it! Now you can use Enclave in your dApp. You can choose to use Enclave in two ways, or even combine both methods in your dApp.
 
 #### Announce Enclave (EIP-6963) (Recommended)
 
@@ -49,33 +49,29 @@ provider.announce() // EIP-6963 announce
 Libraries like Wagmi, Web3Modal, etc., will auto-detect the provider.
 :::
 
-#### Directly use Provider(EIP-1193)
+#### Directly use Provider (EIP-1193)
 
 Let's use Enclave to get the list of accounts.
 
 ```ts [main.ts]
-import { inject, provider } from '@enclave-so/sdk'
+import { provider } from '@enclave-so/sdk'
 
-await inject()
-
-// EIP-1193 provider // [!code focus]
-const accounts = await provider.request({ method: 'eth_requestAccounts' }) // [!code focus]
-console.log(accounts) // [!code focus]
-// ['0x6B944948B5e70e4421034C4C0744A176b0bf9968'] // [!code focus]
+// EIP-1193 provider
+const accounts = await provider.request({ method: 'eth_requestAccounts' })
+console.log(accounts)
+// ['0x6B944948B5e70e4421034C4C0744A176b0bf9968']
 ```
 
 :::info[EIP-1193]
 You can also use the EIP-1193 provider directly.
 :::
-
-You can choose one way or use both in your dApp.
 ::::
 
 ## Next Steps
 
 - Use with [Wagmi](/integrations/wagmi.mdx)
 - Use with [Web3Modal](/integrations/web3modal.mdx), [RainbowKit](/integrations/rainbowkit.mdx), or [ConnectKit](/integrations/connectkit.mdx)
-- Use with [Viem, Ethers or Web3.js](/integrations/libraries.mdx)
+- Use with [Viem, Ethers, or Web3.js](/integrations/libraries.mdx)
 - Improve retention with [Boosts](/plus/boosts.mdx)
 - Announce your integration on [X](https://x.com/intent/tweet?text=Just%20integrated%20Enclave%20Wallet%20into%20my%20dApp%20%F0%9F%9A%80%20%40enclave_so) and we will retweet
 - Discuss with the community on [Discord](https://discord.gg/haJ25keutP)
