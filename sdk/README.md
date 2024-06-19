@@ -19,13 +19,10 @@ npm i @enclave-so/sdk
 ```
 
 ```ts
-// 1. Import modules
-import { inject, provider } from '@enclave-so/sdk'
+import { provider } from '@enclave-so/sdk'
 
-// 2. Set up Enclave provider
-await inject() // EIP-6963 announce
+provider.announce() // EIP-6963 announce
 
-// 3. Consume an action
 const accounts = await provider.request({ method: 'eth_requestAccounts' }) // EIP-1193 provider
 console.log(accounts)
 // ['0x6B944948B5e70e4421034C4C0744A176b0bf9968']
