@@ -32,7 +32,7 @@ bun i @enclave-so/sdk
 
 #### Way 1: Announce Provider (EIP-6963) (Recommended)
 
-Enclave is EIP-6963 compatible, so you can use it without any additional setup. Just make sure to announce Enclave:
+Announce Enclave to make it EIP-6963 compatible:
 
 :::code-group
 ```ts [config.ts]
@@ -77,12 +77,12 @@ export default function Connectors() {
 :::
 
 :::info[Tip]
-You can announce the Enclave provider either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
+Announce the Enclave provider either **outside a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
 :::
 
 #### Way 2: Connector
 
-Alternatively, configure Enclave directly in your Wagmi setup:
+Configure Enclave directly in Wagmi:
 
 :::code-group
 
@@ -130,7 +130,7 @@ export default function Connectors() {
 
 #### Way 3: Inline Connector
 
-You can also use the Enclave connector directly in your project:
+Use the Enclave connector directly in your project:
 
 ```tsx [Connectors.tsx]
 import { target } from '@enclave-so/sdk'
