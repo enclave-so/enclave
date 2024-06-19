@@ -28,13 +28,9 @@ bun i @enclave-so/sdk
 
 :::
 
-:::info[Tip]
-You can announce Enclave either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
-:::
-
 ### Use Enclave
 
-#### Way 1: Use Enclave without Additional Setup (Recommended)
+#### Way 1: Announce Provider (EIP-6963) (Recommended)
 
 Enclave is EIP-6963 compatible, so you can use it without any additional setup. Just make sure to announce Enclave:
 
@@ -80,7 +76,11 @@ export default function Connectors() {
 
 :::
 
-#### Way 2: Add Enclave Connector Directly
+:::info[Tip]
+You can announce Enclave provider either **outside of a component** or **inside a `useEffect` hook** with an empty dependency array (`[]`).
+:::
+
+#### Way 2: Connector
 
 Alternatively, configure Enclave directly in your Wagmi setup:
 
@@ -128,7 +128,7 @@ export default function Connectors() {
 
 :::
 
-#### Way 3: Use Enclave Directly
+#### Way 3: Inline Connector
 
 You can also use the Enclave connector directly in your project:
 
