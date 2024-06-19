@@ -33,23 +33,25 @@ bun i @enclave-so/sdk
 
 :::
 
-### Setup
+### Usage
 
-Next, we need to set up Enclave in our project.
+That's it! Now you can use Enclave in your dApp. There is 2 ways to use Enclave:
+
+#### Announce Enclave (EIP-6963) (Recommended)
 
 ```ts [main.ts]
-import { inject } from '@enclave-so/sdk'
+import { provider } from '@enclave-so/sdk'
 
-await inject() // EIP-6963 announce
+provider.announce() // EIP-6963 announce
 ```
 
 :::info[EIP-6963]
 Libraries like Wagmi, Web3Modal, etc., will auto-detect the provider.
 :::
 
-### Usage
+#### Directly use Provider(EIP-1193)
 
-Now, let's use Enclave to get the list of accounts.
+Let's use Enclave to get the list of accounts.
 
 ```ts [main.ts]
 import { inject, provider } from '@enclave-so/sdk'
@@ -65,6 +67,8 @@ console.log(accounts) // [!code focus]
 :::info[EIP-1193]
 You can also use the EIP-1193 provider directly.
 :::
+
+You can choose one way or use both in your dApp.
 ::::
 
 ## Next Steps
