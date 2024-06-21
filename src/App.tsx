@@ -1,23 +1,18 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { WagmiProvider } from 'wagmi'
-import Provider from 'components/Transport'
+import { initTransport } from 'transport/init'
 import RequestApp from 'components/RequestApp'
 import RequestSign from 'components/RequestSign'
 import Wallets from 'components/Wallets'
 import config from 'config'
-// import { testApp2 } from 'helpers/secret'
 
 const queryClient = new QueryClient()
 
-const isIFrame =
-  window.location !== window.parent.location ||
-  window.self !== window.top ||
-  window.frameElement
-
-// testApp2() //If used iframe doesnt connect
 export default function () {
-  if (isIFrame) return <Provider />
+  useEffect(() => {
+    initTransport()
+  }, [])
 
   return (
     <WagmiProvider config={config}>

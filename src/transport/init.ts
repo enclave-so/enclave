@@ -1,15 +1,7 @@
-import { initV0 } from 'transport/v0'
+import { initV1 } from 'transport/v1'
 
+//TODO: refactor trasport module
 // eslint-disable-next-line import/prefer-default-export
 export function initTransport() {
-  window.addEventListener('message', initPort)
-}
-
-// Setup the transfered port
-function initPort(e: MessageEvent) {
-  switch (e.data) {
-    case 'v0':
-      initV0(e)
-      break
-  }
+  initV1()
 }
