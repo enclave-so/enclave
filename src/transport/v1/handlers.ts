@@ -1,4 +1,11 @@
-import { Handlers, RequestArgs, createResolver, generateId } from 'transport/v1'
+import {} from 'transport/v1'
+import {
+  Handlers,
+  RequestArgs,
+  createResolver,
+  generateId,
+  origin,
+} from 'transport/v1'
 import { Hex, hexToNumber } from 'viem'
 import { RawTx } from 'models/Tx'
 import { SignPayload } from 'models/SignRequest'
@@ -31,8 +38,6 @@ export const handlers: Handlers<Method> = {
   ['eth_sendTransaction']: sendTransaction,
   ['eth_signTransaction']: signTransaction,
 }
-
-const origin = document.referrer
 
 //Errors
 //TODO: remake errors
