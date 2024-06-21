@@ -32,7 +32,10 @@ export const handlers: Handlers<Method> = {
   ['eth_signTransaction']: signTransaction,
 }
 
+const origin = document.referrer
+
 //Errors
+//TODO: remake errors
 // const MissingParamsErr = 'Missing params'
 const WrongAccountErr = 'Wrong account'
 const UnauthorizedErr = 'Unauthorized'
@@ -55,6 +58,7 @@ async function requestAccounts() {
 
   return accounts()
 }
+
 //Sign
 const currentAccount = () => defaultStore.get(walletsAtom)[0]
 const signResolver = createResolver()
@@ -166,6 +170,7 @@ async function auth(): Promise<boolean> {
 
 function requestAuth(): Promise<boolean> {
   if (defaultStore.get(apps).includes(origin)) {
+    //TODO: opener -> origin
     return Promise.resolve(true)
   }
 
