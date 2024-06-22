@@ -6,7 +6,7 @@ import {
   generateId,
   origin,
 } from 'transport/v1'
-import { Hex, hexToNumber, toHex } from 'viem'
+import { Hex, hexToNumber } from 'viem'
 import { RawTx } from 'models/Tx'
 import { SignPayload } from 'models/SignRequest'
 import { addSignRequest } from 'atoms/signRequestsActions'
