@@ -6,7 +6,7 @@ import {
   generateId,
   origin,
 } from 'transport/v1'
-import { Hex, hexToNumber } from 'viem'
+import { Hex, hexToNumber, toHex } from 'viem'
 import { RawTx } from 'models/Tx'
 import { SignPayload } from 'models/SignRequest'
 import { addSignRequest } from 'atoms/signRequestsActions'
@@ -39,6 +39,7 @@ export const handlers: Handlers<Method> = {
   ['eth_signTransaction']: signTransaction,
 }
 
+// console.log('msg', toHex('msg'))
 //Errors
 //TODO: remake errors
 // const MissingParamsErr = 'Missing params'
@@ -47,7 +48,7 @@ const UnauthorizedErr = 'Unauthorized'
 
 //Accounts
 function accounts() {
-  if (!isAuth) return []
+  if (!checkAuth()) return []
 
   const wallets = defaultStore.get(walletsAtom)
   if (wallets.length > 0) return [wallets[0].address]
@@ -83,7 +84,7 @@ const makeSignRequest = (payload: SignPayload): Promise<unknown> => {
 }
 
 function personalSign({ params }: RequestArgs) {
-  if (!isAuth) return UnauthorizedErr
+  if (!checkAuth()) return UnauthorizedErr
 
   const [message, address] = params as [Hex, string]
 
@@ -97,7 +98,7 @@ function personalSign({ params }: RequestArgs) {
 }
 
 function signTypedData({ params }: RequestArgs) {
-  if (!isAuth) return UnauthorizedErr //TODO: Maybe make middleware?
+  if (!checkAuth()) return UnauthorizedErr //TODO: Maybe make middleware?
 
   const [address, data] = params as [string, string]
 
@@ -111,7 +112,7 @@ function signTypedData({ params }: RequestArgs) {
 }
 
 function sendTransaction({ params }: RequestArgs) {
-  if (!isAuth) return UnauthorizedErr
+  if (!checkAuth()) return UnauthorizedErr
 
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
@@ -129,7 +130,7 @@ function sendTransaction({ params }: RequestArgs) {
 }
 
 function signTransaction({ params }: RequestArgs) {
-  if (!isAuth) return UnauthorizedErr
+  if (!checkAuth()) return UnauthorizedErr
 
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
@@ -144,6 +145,7 @@ function signTransaction({ params }: RequestArgs) {
     rawTx,
   })
 }
+export { signResolver }
 
 //Chain
 let chainId: number = mainnet.id
@@ -153,7 +155,7 @@ function getChainId() {
 }
 
 function switchEthereumChain({ params }: RequestArgs) {
-  if (!isAuth) return UnauthorizedErr
+  if (!checkAuth()) return UnauthorizedErr
 
   const [chain] = params as [{ chainId: Hex }]
   // defaultStore.set(chainId, hexToNumber(newChain.chainId))
@@ -175,7 +177,6 @@ async function auth(): Promise<boolean> {
 
 function requestAuth(): Promise<boolean> {
   if (defaultStore.get(apps).includes(origin)) {
-    //TODO: opener -> origin
     return Promise.resolve(true)
   }
 
@@ -197,4 +198,8 @@ function requestAuth(): Promise<boolean> {
   })
 
   return waitTimeout
+}
+
+function checkAuth() {
+  return isAuth || defaultStore.get(apps).includes(origin)
 }

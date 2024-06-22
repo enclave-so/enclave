@@ -1,7 +1,6 @@
 import { addApp } from 'atoms/appsActions'
 import { useAtom, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
-import comeback from 'helpers/comeback'
 import formatURL from 'helpers/formatURL'
 import modal from 'helpers/modal'
 import requestedAppAtom from 'atoms/requestedApp'
@@ -22,7 +21,6 @@ export default function () {
   const close = () => {
     modal(modalId, false)
     setRequestedApp(null)
-    comeback(requestedApp)
   }
 
   const allow = async () => {

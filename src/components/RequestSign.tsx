@@ -3,7 +3,6 @@ import { removeSignRequest } from 'atoms/signRequestsActions'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import SignRequest from 'models/SignRequest'
-import comeback from 'helpers/comeback'
 import cx from 'helpers/cx'
 import formatNative from 'helpers/formatNative'
 import formatTx from 'helpers/formatTx'
@@ -71,7 +70,6 @@ export default function () {
 
     if (signRequests.length === 1) {
       //last one
-      comeback(signRequest.app)
       modal(modalId, false)
     }
   }
