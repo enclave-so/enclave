@@ -5,8 +5,12 @@ interface Resolver {
   wait(id: string): Promise<unknown>
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export function createResolver(): Resolver {
+const generateId = (length = 8) =>
+  Math.random()
+    .toString(20)
+    .substring(2, length + 2)
+
+function createResolver(): Resolver {
   const callbacks: Record<string, Callback> = {}
 
   return {
@@ -23,3 +27,5 @@ export function createResolver(): Resolver {
     },
   }
 }
+
+export { createResolver, generateId }

@@ -42,7 +42,7 @@ export const handlers: Handlers<Method> = {
 // console.log('msg', toHex('msg'))
 //Errors
 //TODO: remake errors
-// const MissingParamsErr = 'Missing params'
+const MissingParamsErr = 'Missing params'
 const WrongAccountErr = 'Wrong account'
 const UnauthorizedErr = 'Unauthorized'
 
@@ -87,6 +87,8 @@ function personalSign({ params }: RequestArgs) {
   if (!checkAuth()) return UnauthorizedErr
 
   const [message, address] = params as [Hex, string]
+
+  if (!message.startsWith('0x')) return MissingParamsErr
 
   const account = currentAccount()
   if (address !== account.address) return WrongAccountErr
@@ -165,6 +167,7 @@ function switchEthereumChain({ params }: RequestArgs) {
 //Auth
 export let isAuth = false
 
+//TODO: popup doesnt close on Disallow
 async function auth(): Promise<boolean> {
   if (isAuth) {
     return true

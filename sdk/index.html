@@ -11,14 +11,16 @@
     <div id="root" />
     <script type="module" src="/src/index.ts"></script>
     <script type="module">
-      import { inject, provider } from '/src/index.ts'
+      import { provider } from '/src/index.ts'
 
-      await inject({
-        url: 'http://localhost:5173',
-        withBadge: true,
-      })
       const accounts = await provider.request({ method: 'eth_requestAccounts' })
       console.log(accounts)
+
+      const hash = await provider.request({
+        method: 'personal_sign',
+        params: ['0x6d7367', accounts[0]],
+      })
+      console.log(hash)
     </script>
   </body>
 </html>
