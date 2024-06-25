@@ -23,12 +23,12 @@ export default function () {
     setRequestedApp(null)
   }
 
-  const allow = async () => {
+  const approve = async () => {
     add(requestedApp)
     await track('Allow App', { app: requestedApp })
     close()
   }
-  const disallow = () => close()
+  const deny = () => close()
 
   return (
     <dialog id={modalId} className="modal modal-bottom sm:modal-middle">
@@ -38,11 +38,11 @@ export default function () {
         <p className="py-4 font-bold">{formatURL(requestedApp)}</p>
         <div className="modal-action">
           <form method="dialog">
-            <button className="btn" onClick={disallow}>
-              Disallow
+            <button className="btn" onClick={deny}>
+              Deny
             </button>
-            <button className="btn btn-primary ml-2" onClick={allow}>
-              Allow
+            <button className="btn btn-primary ml-2" onClick={approve}>
+              Approve
             </button>
           </form>
         </div>

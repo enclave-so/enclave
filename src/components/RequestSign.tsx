@@ -99,13 +99,13 @@ export default function () {
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn" onClick={() => action(false)}>
-              Cancel
+              Deny
             </button>
             <button
               className="btn btn-primary ml-2"
               onClick={() => action(true)}
             >
-              Sign
+              Approve
             </button>
           </form>
         </div>
