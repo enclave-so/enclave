@@ -28,8 +28,8 @@ export default defineConfig({
           link: '/integrations/wagmi',
         },
         {
-          text: 'Web3Modal',
-          link: '/integrations/web3modal',
+          text: 'AppKit / Web3Modal',
+          link: '/integrations/appkit',
         },
         {
           text: 'ConnectKit',
@@ -44,18 +44,6 @@ export default defineConfig({
           // link: '/integrations/viem-ethers-web3js',
           link: '/integrations/libraries',
         },
-        // {
-        //   text: 'Viem',
-        //   link: '/integrations/viem',
-        // },
-        // {
-        //   text: 'Ethers',
-        //   link: '/integrations/ethers',
-        // },
-        // {
-        //   text: 'Web3.js',
-        //   link: '/integrations/web3js',
-        // }
       ],
     },
     {
