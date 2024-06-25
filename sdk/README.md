@@ -2,7 +2,7 @@
 
 Enclave is an embedded Web3 wallet for user onboarding.
 
-[Getting Started](https://docs.enclave.so/getting-started) | [Demo](https://demo.enclave.so) | [Wallet](https://app.enclave.so)
+[Getting Started](https://docs.enclave.so/getting-started) | [Demo](https://demo.enclave.so) | [Wallet](https://wallet.enclave.so)
 
 - 3-lines setup (1 in terminal, 2 in code)
 - Integrates with any library ([Wagmi](https://docs.enclave.so/integrations/wagmi), [Web3Modal](https://docs.enclave.so/integrations/web3modal), [Ethers](https://docs.enclave.so/integrations/libraries), etc.)
