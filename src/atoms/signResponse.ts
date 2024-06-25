@@ -1,8 +1,6 @@
-import { atomWithStorage } from 'jotai/utils'
+import { atom } from 'jotai'
 
-export default atomWithStorage<{
+export default atom<{
   id: string
   result: unknown
-} | null>('signResponse', null, undefined, {
-  getOnInit: true,
-})
+} | null>(null)

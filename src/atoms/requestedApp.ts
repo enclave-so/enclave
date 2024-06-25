@@ -1,5 +1,3 @@
-import { atomWithStorage } from 'jotai/utils'
+import { atom } from 'jotai'
 
-export default atomWithStorage<string | null>('requestedApp', null, undefined, {
-  getOnInit: true,
-})
+export default atom<string | null>(null)
