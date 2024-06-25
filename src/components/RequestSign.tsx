@@ -92,8 +92,8 @@ export default function () {
             <div className={dividerClass} />
           </>
         )}
-        <p className={paramsClass}>{`Request ID: ${signRequest.id}`}</p>
-        <div className={dividerClass} />
+        {/* <p className={paramsClass}>{`Request ID: ${signRequest.id}`}</p>
+        <div className={dividerClass} /> */}
         <Content req={signRequest} />
         <div className="modal-action">
           <form method="dialog">
