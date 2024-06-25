@@ -1,4 +1,4 @@
-name: Core deploy
+name: Wallet deploy
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
       - '!site/**'
       - '!sdk/**'
 jobs:
-  core-deploy:
+  wallet-deploy:
     permissions:
       contents: read
       pages: write
