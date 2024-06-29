@@ -28,7 +28,7 @@ export default defineConfig({
           link: '/integrations/wagmi',
         },
         {
-          text: 'AppKit / Web3Modal',
+          text: 'AppKit (Web3Modal)',
           link: '/integrations/appkit',
         },
         {
