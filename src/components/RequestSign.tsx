@@ -57,8 +57,12 @@ export default function () {
   }
 
   const action = async (ok: boolean) => {
-    const result = ok ? await sign() : null
-    setSignResponse({ id: signRequest.id, result })
+    try {
+      const result = ok ? await sign() : null
+      setSignResponse({ id: signRequest.id, result })
+    } catch (e) {
+      setSignResponse({ id: signRequest.id, result: e.message })
+    }
 
     if (ok) {
       //TODO: doesnt comeback if there is an error
