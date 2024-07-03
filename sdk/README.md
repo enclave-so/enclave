@@ -34,7 +34,6 @@ console.log(accounts)
 - [Visit the documentation](https://docs.enclave.so/getting-started) to learn more about Enclave.
 - Follow [@enclave_so](https://twitter.com/enclave_so) and [@danpopenko](https://twitter.com/danpopenko) on Twitter for project updates
 - Join the [discussions on GitHub](https://github.com/enclave-so/enclave/discussions)
-- [Share your project/organization](https://github.com/enclave-so/enclave/discussions/104) that uses Enclave
 
 ## License
 
