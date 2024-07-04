@@ -11,6 +11,12 @@ export default defineConfig({
     },
   },
   logoUrl: '/logo.svg',
+  socials: [
+    {
+      icon: 'discord',
+      link: 'https://discord.gg/haJ25keutP',
+    },
+  ],
   sidebar: [
     // {
     //   text: 'Why Enclave',
