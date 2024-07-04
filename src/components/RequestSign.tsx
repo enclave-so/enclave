@@ -109,7 +109,7 @@ export default function () {
               className="btn btn-primary ml-2"
               onClick={() => action(true)}
             >
-              Approve
+              Confirn
             </button>
           </form>
         </div>
