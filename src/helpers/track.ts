@@ -4,11 +4,22 @@ import trackId from 'constants/trackId'
 
 const url = 'https://api.mixpanel.com/track?ip=1' //TODO: change to proxy
 const token = '3c704f6fc7f20e96c925f8106f2896aa'
+
 export default async function (
   name: string,
   props: Record<string, unknown> = {}
 ) {
-  return //TODO: remove when create a proxy
+  try {
+    await trackMixpanel(name, props)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+async function trackMixpanel(
+  name: string,
+  props: Record<string, unknown> = {}
+) {
   const properties = {
     ...props,
     distinct_id: trackId,

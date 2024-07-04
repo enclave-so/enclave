@@ -65,7 +65,6 @@ export default function () {
     }
 
     if (ok) {
-      //TODO: doesnt comeback if there is an error
       await track('Sign', { method: signRequest.method, app: signRequest.app })
     }
 
