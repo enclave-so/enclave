@@ -2,7 +2,7 @@
 
 import trackId from 'constants/trackId'
 
-const url = 'https://api.mixpanel.com/track?ip=1' //TODO: change to proxy
+const url = 'https://mixpanel.enclave.so/track?ip=1'
 const token = '3c704f6fc7f20e96c925f8106f2896aa'
 
 export default async function (

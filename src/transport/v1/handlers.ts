@@ -15,6 +15,7 @@ import apps from 'atoms/apps'
 import defaultStore from 'helpers/defaultStore'
 import formatTx from 'helpers/formatTx'
 import requestedApp from 'atoms/requestedApp'
+import track from 'helpers/track'
 import walletsAtom from 'atoms/wallets'
 
 type Method =
@@ -62,6 +63,7 @@ function accounts() {
 async function requestAccounts() {
   await auth()
 
+  await track('connect', { app: origin })
   return accounts()
 }
 
