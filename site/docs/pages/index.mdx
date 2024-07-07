@@ -1,20 +1,9 @@
----
-layout: landing
----
+import { useEffect } from 'react'
 
-import { HomePage } from 'vocs/components'
+export default function Redirect() {
+  useEffect(() => {
+    window.location.href = "/getting-started";
+  }, []);
 
-<HomePage.Root>
-  <HomePage.Logo />
-  <HomePage.Tagline>Enclave</HomePage.Tagline>
-  <HomePage.InstallPackage name="@enclave-so/sdk" type="install" />
-  <HomePage.Description>
-    Enclave is an embedded Web3 wallet for user onboarding.
-  </HomePage.Description>
-  <HomePage.Buttons>
-    <HomePage.Button href="/getting-started" variant="accent">
-      Get started
-    </HomePage.Button>
-    <HomePage.Button href="https://wallet.enclave.so">Wallet</HomePage.Button>
-  </HomePage.Buttons>
-</HomePage.Root>
+  return null;
+}
