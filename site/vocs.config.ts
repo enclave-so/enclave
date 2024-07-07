@@ -16,6 +16,10 @@ export default defineConfig({
       icon: 'discord',
       link: 'https://discord.gg/haJ25keutP',
     },
+    {
+      icon: 'github',
+      link: 'https://github.com/enclave-so/enclave',
+    },
   ],
   sidebar: [
     // {
