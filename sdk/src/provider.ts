@@ -26,7 +26,7 @@ function createProvider(config: Partial<Config> = {}) {
       info: {
         icon: logo,
         name: 'Enclave',
-        rdns: 'so.enclave.app',
+        rdns: 'so.enclave.wallet',
         uuid: '6a82a4f7-ba00-469b-b146-66b7fb5197a9',
         ...info,
       },

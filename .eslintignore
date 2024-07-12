@@ -3,3 +3,4 @@ vite.config.ts
 tailwind.config.js
 site/**
 sdk/**
+extension/**

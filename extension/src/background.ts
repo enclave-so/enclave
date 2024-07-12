@@ -1,0 +1,11 @@
+import browser from 'webextension-polyfill'
+
+// console.log("Hello from the background!");
+
+// browser.runtime.onInstalled.addListener((details) => {
+//   console.log("Extension installed:", details);
+// });
+
+browser.action.onClicked.addListener((tab) => {
+  browser.tabs.create({ url: 'https://wallet.enclave.so' })
+})
