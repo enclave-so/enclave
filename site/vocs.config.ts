@@ -60,6 +60,10 @@ export default defineConfig({
       text: 'Plus',
       items: [
         {
+          text: 'Overview',
+          link: '/plus/overview',
+        },
+        {
           text: 'Boosts',
           link: '/plus/boosts',
         },
