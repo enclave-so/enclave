@@ -6,7 +6,7 @@ import formatURL from 'helpers/formatURL'
 import signResponse from 'atoms/signResponse'
 
 const opener = window.opener as Window | null
-const origin = formatURL(document.referrer)
+let origin: string
 
 const sendMsg = (message: string) => {
   opener!.postMessage(message, '*')
@@ -19,7 +19,9 @@ function initV1() {
   const transport = createTransport(sendMsg, handlers)
 
   window.addEventListener('message', (e) => {
-    if (formatURL(e.origin) !== origin) return
+    if (formatURL(e.origin) === formatURL(window.location.href)) return //its extensions
+    if (origin === undefined) origin = formatURL(e.origin) //TODO: its tricky, remake, add origin to every message
+    // if (formatURL(e.origin) !== origin) return
     transport.onMessage(e)
   })
   opener.postMessage('popupLoaded', '*')
