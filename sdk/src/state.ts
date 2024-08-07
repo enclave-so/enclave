@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
 import { createPopup } from './popup'
-import { Handlers, RequestArgs } from './transport'
+import { createErr, Handlers, RequestArgs } from './transport'
 
 type Hex = `0x${string}`
 
@@ -50,7 +50,7 @@ function createState(url: string) {
   }
 
   const direct = async <T = unknown>(args: RequestArgs) => {
-    if (!isConnected()) return 'Not connected' //TODO: better error handling
+    if (!isConnected()) return createErr('Resource unavailable')
     await popup.sendRequest({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId }],
@@ -62,7 +62,7 @@ function createState(url: string) {
       accounts = enclaveAccounts
       emit('accountsChanged', accounts)
       popup.close()
-      return 'Wrong account' //TODO: better error handling
+      return createErr('Invalid params')
     }
     const result = await popup.sendRequest<T>(args)
     popup.close()
@@ -86,7 +86,7 @@ function createState(url: string) {
     if (handler) {
       return await handler(args)
     }
-    return Promise.resolve('Unsupported method')
+    return createErr('Method not found', args)
   }
 
   return { on, removeListener, handleRequest }

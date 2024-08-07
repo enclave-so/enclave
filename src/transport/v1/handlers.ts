@@ -1,7 +1,7 @@
-import {} from 'transport/v1'
 import {
   Handlers,
   RequestArgs,
+  createErr,
   createResolver,
   generateId,
   origin,
@@ -39,13 +39,6 @@ export const handlers: Handlers<Method> = {
   ['eth_sendTransaction']: sendTransaction,
   ['eth_signTransaction']: signTransaction,
 }
-
-// console.log('msg', toHex('msg'))
-//Errors
-//TODO: remake errors
-const MissingParamsErr = 'Missing params'
-const WrongAccountErr = 'Wrong account'
-const UnauthorizedErr = 'Unauthorized'
 
 //Accounts
 function accounts() {
@@ -86,14 +79,14 @@ const makeSignRequest = (payload: SignPayload): Promise<unknown> => {
 }
 
 function personalSign({ params }: RequestArgs) {
-  if (!checkAuth()) return UnauthorizedErr
+  if (!checkAuth()) return createErr('Resource unavailable')
 
   const [message, address] = params as [Hex, string]
 
-  if (!message.startsWith('0x')) return MissingParamsErr
+  if (!message.startsWith('0x')) return createErr('Invalid params')
 
   const account = currentAccount()
-  if (address !== account.address) return WrongAccountErr
+  if (address !== account.address) return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'personal_sign',
@@ -102,12 +95,12 @@ function personalSign({ params }: RequestArgs) {
 }
 
 function signTypedData({ params }: RequestArgs) {
-  if (!checkAuth()) return UnauthorizedErr //TODO: Maybe make middleware?
+  if (!checkAuth()) return createErr('Resource unavailable') //TODO: Maybe make middleware?
 
   const [address, data] = params as [string, string]
 
   const account = currentAccount()
-  if (address !== account.address) return WrongAccountErr
+  if (address !== account.address) return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'eth_signTypedData_v4',
@@ -116,13 +109,13 @@ function signTypedData({ params }: RequestArgs) {
 }
 
 function sendTransaction({ params }: RequestArgs) {
-  if (!checkAuth()) return UnauthorizedErr
+  if (!checkAuth()) return createErr('Resource unavailable')
 
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
 
   const account = currentAccount()
-  if (tx.from !== account.address) return WrongAccountErr
+  if (tx.from !== account.address) return createErr('Invalid params')
 
   //TODO: check possible errors
 
@@ -134,13 +127,13 @@ function sendTransaction({ params }: RequestArgs) {
 }
 
 function signTransaction({ params }: RequestArgs) {
-  if (!checkAuth()) return UnauthorizedErr
+  if (!checkAuth()) return createErr('Resource unavailable')
 
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
 
   const account = currentAccount()
-  if (tx.from !== account.address) return WrongAccountErr
+  if (tx.from !== account.address) return createErr('Invalid params')
 
   //TODO: check possible errors
   return makeSignRequest({
@@ -159,7 +152,7 @@ function getChainId() {
 }
 
 function switchEthereumChain({ params }: RequestArgs) {
-  if (!checkAuth()) return UnauthorizedErr
+  if (!checkAuth()) return createErr('Resource unavailable')
 
   const [chain] = params as [{ chainId: Hex }]
   // defaultStore.set(chainId, hexToNumber(newChain.chainId))

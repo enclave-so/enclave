@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "eventemitter3": "^5.0.1",
-    "mipd": "^0.0.7"
+    "mipd": "^0.0.7",
+    "viem": "^2.19.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.13.1",

@@ -4,7 +4,7 @@ import {
   announceProvider,
 } from 'mipd'
 import { Config, defaultConfig } from './config'
-import { RequestArgs } from './transport'
+import { isErr, RequestArgs } from './transport'
 import logo from './logo'
 import { createState } from './state'
 
@@ -16,9 +16,14 @@ function createProvider(config: Partial<Config> = {}) {
 
   const { on, removeListener, handleRequest } = createState(options.url)
 
-  function request<T = unknown>(args: RequestArgs): Promise<T> {
+  async function request<T = unknown>(args: RequestArgs): Promise<T> {
     // console.log('request', args)
-    return handleRequest(args) as Promise<T>
+    const result = await handleRequest(args)
+    if (isErr(result)) {
+      return Promise.reject(result) //This doesnt works
+    }
+    //TODO: continue here
+    return result as Promise<T>
   }
 
   function announce(info: Partial<EIP6963ProviderInfo> = {}) {
