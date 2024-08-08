@@ -1,8 +1,8 @@
 import EventEmitter from 'eventemitter3'
 import { createPopup } from './popup'
 import { createErr, Handlers, RequestArgs } from './transport'
-
-type Hex = `0x${string}`
+import { Hex, hexToNumber, toHex } from 'viem'
+import { getPublicClient } from './client'
 
 function createState(url: string) {
   const emitter = new EventEmitter()
@@ -13,7 +13,7 @@ function createState(url: string) {
   const popup = createPopup(new URL(url))
 
   let accounts: Hex[] = []
-  let chainId: Hex = '0x1'
+  let chainId = 1
 
   const isConnected = () => accounts.length > 0
 
@@ -25,7 +25,7 @@ function createState(url: string) {
     popup.close()
 
     if (!isConnected()) return
-    emit('connect', { chainId })
+    emit('connect', { chainId: toHex(chainId) })
     emit('accountsChanged', accounts)
   }
 
@@ -36,24 +36,25 @@ function createState(url: string) {
   }
 
   const getAccounts = () => accounts
-  const getChainId = () => chainId
+  const getChainId = () => toHex(chainId)
   const requestPermissions = () => true //TODO: implement
 
   function switchChain(args: RequestArgs) {
     if (!isConnected()) return //TODO: need to check isConnected?
     const [chainArgs] = args.params as [{ chainId: Hex }]
-    if (chainId !== chainArgs.chainId) {
-      chainId = chainArgs.chainId
-      emit('chainChanged', chainId)
-    }
-    return null
+
+    const newChainId = hexToNumber(chainArgs.chainId)
+    if (chainId === newChainId) return null
+
+    chainId = newChainId
+    emit('chainChanged', chainArgs.chainId)
   }
 
   const direct = async <T = unknown>(args: RequestArgs) => {
     if (!isConnected()) return createErr('Resource unavailable')
     await popup.sendRequest({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId }],
+      params: [{ chainId: toHex(chainId) }],
     })
     const enclaveAccounts: Hex[] = await popup.sendRequest({
       method: 'eth_accounts',
@@ -67,6 +68,11 @@ function createState(url: string) {
     const result = await popup.sendRequest<T>(args)
     popup.close()
     return result
+  }
+
+  const publicAction = async (args: RequestArgs) => {
+    const client = getPublicClient(chainId)
+    return client.request(args)
   }
 
   const handlers: Handlers = {
@@ -86,7 +92,8 @@ function createState(url: string) {
     if (handler) {
       return await handler(args)
     }
-    return createErr('Method not found', args)
+
+    return publicAction(args)
   }
 
   return { on, removeListener, handleRequest }

@@ -6,7 +6,7 @@ import {
   generateId,
   origin,
 } from 'transport/v1'
-import { Hex, hexToNumber } from 'viem'
+import { Hex, hexToNumber, isAddressEqual } from 'viem'
 import { RawTx } from 'models/Tx'
 import { SignPayload } from 'models/SignRequest'
 import { addSignRequest } from 'atoms/signRequestsActions'
@@ -81,12 +81,13 @@ const makeSignRequest = (payload: SignPayload): Promise<unknown> => {
 function personalSign({ params }: RequestArgs) {
   if (!checkAuth()) return createErr('Resource unavailable')
 
-  const [message, address] = params as [Hex, string]
+  const [message, address] = params as [Hex, Hex]
 
   if (!message.startsWith('0x')) return createErr('Invalid params')
 
   const account = currentAccount()
-  if (address !== account.address) return createErr('Invalid params')
+  if (!isAddressEqual(address, account.address))
+    return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'personal_sign',
@@ -97,10 +98,11 @@ function personalSign({ params }: RequestArgs) {
 function signTypedData({ params }: RequestArgs) {
   if (!checkAuth()) return createErr('Resource unavailable') //TODO: Maybe make middleware?
 
-  const [address, data] = params as [string, string]
+  const [address, data] = params as [Hex, string]
 
   const account = currentAccount()
-  if (address !== account.address) return createErr('Invalid params')
+  if (!isAddressEqual(address, account.address))
+    return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'eth_signTypedData_v4',
@@ -115,7 +117,8 @@ function sendTransaction({ params }: RequestArgs) {
   const tx = formatTx(rawTx)
 
   const account = currentAccount()
-  if (tx.from !== account.address) return createErr('Invalid params')
+  if (!isAddressEqual(tx.from, account.address))
+    return createErr('Invalid params')
 
   //TODO: check possible errors
 
@@ -133,7 +136,8 @@ function signTransaction({ params }: RequestArgs) {
   const tx = formatTx(rawTx)
 
   const account = currentAccount()
-  if (tx.from !== account.address) return createErr('Invalid params')
+  if (!isAddressEqual(tx.from, account.address))
+    return createErr('Invalid params')
 
   //TODO: check possible errors
   return makeSignRequest({
