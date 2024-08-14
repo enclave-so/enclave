@@ -11,17 +11,17 @@
   "dependencies": {
     "@enclave-so/sdk": "workspace:*",
     "mipd": "^0.0.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
-    "@types/webextension-polyfill": "^0.10.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.0",
-    "vite-plugin-web-extension": "^4.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/webextension-polyfill": "^0.10.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vite-plugin-web-extension": "^4.1.6",
     "webextension-polyfill": "^0.10.0"
   }
 }
