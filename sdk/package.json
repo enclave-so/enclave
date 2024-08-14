@@ -4,12 +4,12 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "cross-env NODE_ENV=production tsc && vite build",
     "pretty": "prettier --check src",
-    "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
-    "preview": "yarn build && yarn vite preview",
-    "prebuild": "node generateChains.js"
+    "lint": "pnpm pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
+    "preview": "pnpm build && pnpm vite preview",
+    "prebuild": "node scripts/generateChains.js"
   },
   "dependencies": {
     "eventemitter3": "^5.0.1",
@@ -44,7 +44,6 @@
       "default": "./dist/index.js"
     }
   },
-  "packageManager": "yarn@4.1.1",
   "keywords": [
     "eth",
     "ethereum",

@@ -4,11 +4,20 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "cross-env NODE_ENV=production tsc && vite build",
-    "pretty": "prettier --check src",
-    "lint": "yarn pretty && eslint 'src/**/*.{ts,tsx,json}' --max-warnings 0",
-    "preview": "yarn build && yarn vite preview"
+    "wallet:dev": "vite",
+    "wallet:build": "cross-env NODE_ENV=production tsc && vite build",
+    "wallet:pretty": "prettier --check src",
+    "wallet:lint": "pnpm wallet:pretty && eslint 'src/**/*.{ts,tsx,json}' --max-warnings 0",
+    "wallet:preview": "pnpm wallet:build && pnpm vite preview",
+    "extension:dev": "pnpm --filter extension dev",
+    "extension:build": "pnpm --filter extension build",
+    "extension:watch": "pnpm --filter extension watch",
+    "sdk:dev": "pnpm --filter sdk dev",
+    "sdk:build": "pnpm --filter sdk build",
+    "sdk:prebuild": "pnpm --filter sdk prebuild",
+    "docs:dev": "pnpm --filter site dev",
+    "docs:build": "pnpm --filter site build",
+    "docs:preview": "pnpm --filter site preview"
   },
   "dependencies": {
     "@scure/bip32": "^1.4.0",
@@ -46,5 +55,5 @@
     "vite": "^5.3.1",
     "vite-tsconfig-paths": "^4.3.2"
   },
-  "packageManager": "yarn@4.2.2"
+  "packageManager": "pnpm@9.4.0"
 }

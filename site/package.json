@@ -1,5 +1,5 @@
 {
-  "name": "enclave-docs",
+  "name": "site",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -13,6 +13,5 @@
     "react-dom": "latest",
     "typescript": "latest",
     "vocs": "latest"
-  },
-  "packageManager": "pnpm@9.1.1"
+  }
 }

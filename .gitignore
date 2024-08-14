@@ -22,11 +22,5 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+#
+vocs.config.ts.timestamp-*.mjs
