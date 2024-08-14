@@ -12,9 +12,6 @@ jobs:
       pages: write
       id-token: write
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: site
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,7 +46,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: pnpm docs:build
 
       - name: Pushes to another repository
         id: push_directory
