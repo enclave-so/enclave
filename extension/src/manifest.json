@@ -15,6 +15,7 @@
     "{{firefox}}.scripts": ["src/background.ts"]
   },
   "{{chrome}}.action": {
+    "default_popup": "src/popup.html",
     "default_icon": {
       "16": "icons/16.png",
       "48": "icons/48.png",
@@ -22,6 +23,7 @@
     }
   },
   "{{firefox}}.browser_action": {
+    "default_popup": "src/popup.html",
     "default_icon": {
       "16": "icons/16.png",
       "48": "icons/48.png",
