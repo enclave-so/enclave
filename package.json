@@ -20,6 +20,7 @@
     "docs:preview": "pnpm --filter site preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@scure/bip32": "^1.4.0",
     "@scure/bip39": "^1.3.0",
     "@tanstack/react-query": "^5.51.23",

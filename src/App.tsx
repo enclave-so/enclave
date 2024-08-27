@@ -2,9 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Suspense, useEffect } from 'react'
 import { WagmiProvider } from 'wagmi'
 import { initTransport } from 'transport/init'
-import RequestApp from 'components/RequestApp'
-import RequestSign from 'components/RequestSign'
-import Wallets from 'components/Wallets'
+// import RequestApp from 'components/RequestApp'
+// import RequestSign from 'components/RequestSign'
+// import Wallets from 'components/Wallets'
+import Router from 'components/Router'
 import config from 'config'
 
 const queryClient = new QueryClient()
@@ -19,10 +20,11 @@ export default function () {
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto max-w-sm p-10 prose">
           <Suspense fallback={<p>Loading...</p>}>
-            <Wallets />
+            <Router />
+            {/* <Wallets />
             <RequestApp />
+            <RequestSign /> */}
             {/* TODO: Combine Request cause they overlay now */}
-            <RequestSign />
           </Suspense>
         </div>
       </QueryClientProvider>

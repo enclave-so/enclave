@@ -1,7 +1,7 @@
 import { addWallet } from 'atoms/walletsActions'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import Wallet from 'components/Wallet'
+import WalletRow from 'components/WalletRow'
 import createKey from 'helpers/createKey'
 import modal from 'helpers/modal'
 import persist from 'helpers/persist'
@@ -67,7 +67,7 @@ export default function () {
     <>
       <h1 className="my-4">Wallets</h1>
       {wallets.map((wallet) => (
-        <Wallet key={wallet.address} wallet={wallet} />
+        <WalletRow key={wallet.address} wallet={wallet} />
       ))}
       <button className="btn mt-4 w-full" onClick={openModal}>
         Add another wallet
