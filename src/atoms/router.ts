@@ -7,5 +7,8 @@ type Router =
   | {
       path: 'sign'
     }
+  | {
+      path: 'wallets'
+    }
 
 export default atom<Router>({ path: 'default' })

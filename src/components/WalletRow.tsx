@@ -1,16 +1,21 @@
-import { removeWallet, switchWallet } from 'atoms/walletsActions'
+import { Hex } from 'viem'
+import { removeWallet } from 'atoms/walletsActions'
 import { unmarshal } from 'helpers/secret'
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Wallet from 'models/Wallet'
 import getEmoji from 'helpers/getEmoji'
 import getPK from 'helpers/getPK'
 import isPrivateKey from 'helpers/isPrivateKey'
 import modal from 'helpers/modal'
+import router from 'atoms/router'
+import selectedAddressAtom from 'atoms/selectedAddress'
 
 export default function ({ wallet }: { wallet: Wallet }) {
+  const [, setSelectedAddress] = useAtom(selectedAddressAtom)
   const [, deleteWallet] = useAtom(removeWallet)
-  const [, switchTo] = useAtom(switchWallet)
+  // const [, switchTo] = useAtom(switchWallet)
+  const [, setRoute] = useAtom(router)
   const [consent, setConsent] = useState(true)
   const [key, setKey] = useState('')
 
@@ -21,11 +26,17 @@ export default function ({ wallet }: { wallet: Wallet }) {
     fetchKey()
   }, [wallet.key])
 
-  const modalId = `reveal${wallet.address}`
+  const modalId = useId()
 
   const close = () => {
     modal(modalId, false)
     setConsent(true)
+  }
+
+  const selectWallet = (address: Hex) => {
+    modal(modalId, false)
+    setSelectedAddress(address)
+    setRoute({ path: 'default' })
   }
 
   const isPK = isPrivateKey(key)
@@ -33,8 +44,8 @@ export default function ({ wallet }: { wallet: Wallet }) {
   return (
     <>
       <div className="dropdown">
-        <div tabIndex={0} role="button" className="m-1 text-lg">
-          <span className="mr-1 py-1 px-1.5 bg-amber-100 rounded-md">
+        <div tabIndex={0} role="button" className="mb-3 text-lg">
+          <span className="mr-2 py-1 px-2 bg-amber-100 rounded-md">
             {getEmoji(wallet.address)}
           </span>
           <span className="font-bold">
@@ -47,7 +58,7 @@ export default function ({ wallet }: { wallet: Wallet }) {
         >
           <li>
             <a
-              onClick={() => switchTo(wallet.address)}
+              onClick={() => selectWallet(wallet.address)}
               className="no-underline"
             >
               Switch to
