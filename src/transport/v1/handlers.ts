@@ -15,8 +15,8 @@ import apps from 'atoms/apps'
 import defaultStore from 'helpers/defaultStore'
 import formatTx from 'helpers/formatTx'
 import requestedApp from 'atoms/requestedApp'
+import selectedAddress from 'atoms/selectedAddress'
 import track from 'helpers/track'
-import walletsAtom from 'atoms/wallets'
 
 type Method =
   | 'eth_requestAccounts'
@@ -28,7 +28,6 @@ type Method =
   | 'eth_sendTransaction'
   | 'eth_signTransaction'
 
-// eslint-disable-next-line import/prefer-default-export
 export const handlers: Handlers<Method> = {
   ['eth_requestAccounts']: requestAccounts,
   ['eth_accounts']: accounts,
@@ -39,18 +38,19 @@ export const handlers: Handlers<Method> = {
   ['eth_sendTransaction']: sendTransaction,
   ['eth_signTransaction']: signTransaction,
 }
+//TODO: fix this ?? '0x'
+const currentAddress = () => defaultStore.get(selectedAddress) ?? '0x'
 
 //Accounts
 function accounts() {
   if (!checkAuth()) return []
 
-  const wallets = defaultStore.get(walletsAtom)
-  if (wallets.length > 0) return [wallets[0].address]
+  const address = currentAddress()
+  return [address]
 
   //create new wallet if not exist
   // defaultStore.set(addWallet, createKey())
   // return defaultStore.get(walletsAtom)[0].address
-  return []
 }
 
 async function requestAccounts() {
@@ -61,7 +61,6 @@ async function requestAccounts() {
 }
 
 //Sign
-const currentAccount = () => defaultStore.get(walletsAtom)[0]
 const signResolver = createResolver()
 
 const makeSignRequest = (payload: SignPayload): Promise<unknown> => {
@@ -70,7 +69,7 @@ const makeSignRequest = (payload: SignPayload): Promise<unknown> => {
 
   defaultStore.set(addSignRequest, {
     id: id,
-    wallet: currentAccount().address,
+    wallet: currentAddress(),
     app: origin,
     ...payload,
   })
@@ -85,9 +84,8 @@ function personalSign({ params }: RequestArgs) {
 
   if (!message.startsWith('0x')) return createErr('Invalid params')
 
-  const account = currentAccount()
-  if (!isAddressEqual(address, account.address))
-    return createErr('Invalid params')
+  const account = currentAddress()
+  if (!isAddressEqual(address, account)) return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'personal_sign',
@@ -100,9 +98,8 @@ function signTypedData({ params }: RequestArgs) {
 
   const [address, data] = params as [Hex, string]
 
-  const account = currentAccount()
-  if (!isAddressEqual(address, account.address))
-    return createErr('Invalid params')
+  const account = currentAddress()
+  if (!isAddressEqual(address, account)) return createErr('Invalid params')
 
   return makeSignRequest({
     method: 'eth_signTypedData_v4',
@@ -116,9 +113,8 @@ function sendTransaction({ params }: RequestArgs) {
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
 
-  const account = currentAccount()
-  if (!isAddressEqual(tx.from, account.address))
-    return createErr('Invalid params')
+  const account = currentAddress()
+  if (!isAddressEqual(tx.from, account)) return createErr('Invalid params')
 
   //TODO: check possible errors
 
@@ -135,9 +131,8 @@ function signTransaction({ params }: RequestArgs) {
   const [rawTx] = params as [RawTx]
   const tx = formatTx(rawTx)
 
-  const account = currentAccount()
-  if (!isAddressEqual(tx.from, account.address))
-    return createErr('Invalid params')
+  const account = currentAddress()
+  if (!isAddressEqual(tx.from, account)) return createErr('Invalid params')
 
   //TODO: check possible errors
   return makeSignRequest({
@@ -184,6 +179,7 @@ function requestAuth(): Promise<boolean> {
 
   defaultStore.set(requestedApp, origin)
 
+  // eslint-disable-next-line no-unused-vars
   let resolveWaitTimeout: (value: boolean) => void
   let timeoutID: number
   const waitTimeout = new Promise<boolean>((resolve) => {
