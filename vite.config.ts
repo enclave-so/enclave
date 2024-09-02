@@ -13,7 +13,6 @@ export default defineConfig({
           brotliSize: true,
         }) as Plugin,
       ],
-    },
-    outDir: 'dist',
+    }
   },
 })

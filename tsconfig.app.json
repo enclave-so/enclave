@@ -27,15 +27,14 @@
       "react": ["../node_modules/preact/compat/"],
       "react-dom": ["../node_modules/preact/compat/"]
     },
+    "baseUrl": "src",
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "baseUrl": "src",
     "useUnknownInCatchVariables": false,
     "noImplicitOverride": true,
-    "exactOptionalPropertyTypes": true,
     "noPropertyAccessFromIndexSignature": true,
     "noErrorTruncation": true
   },
