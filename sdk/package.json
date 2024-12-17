@@ -14,21 +14,21 @@
   "dependencies": {
     "eventemitter3": "^5.0.1",
     "mipd": "^0.0.7",
-    "viem": "^2.21.0"
+    "viem": "^2.21.55"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
     "cross-env": "^7.0.3",
-    "eslint": "^9.9.1",
+    "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2",
-    "vite-plugin-dts": "^4.0.3"
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0"
   },
   "files": [
     "dist",
