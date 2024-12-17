@@ -31,41 +31,32 @@ export default defineConfig({
       link: '/getting-started',
     },
     {
-      text: 'Integrations',
+      text: 'Embedded Wallet API (wallet)',
       items: [
         {
+          text: 'Overview',
+          link: '/wallet/overview',
+        },
+        {
           text: 'Wagmi',
-          link: '/integrations/wagmi',
+          link: '/wallet/wagmi',
         },
         {
           text: 'AppKit (Web3Modal)',
-          link: '/integrations/appkit',
+          link: '/wallet/appkit',
         },
         {
           text: 'ConnectKit',
-          link: '/integrations/connectkit',
+          link: '/wallet/connectkit',
         },
         {
           text: 'RainbowKit',
-          link: '/integrations/rainbowkit',
+          link: '/wallet/rainbowkit',
         },
         {
           text: 'Viem / Ethers / Web3.js',
           // link: '/integrations/viem-ethers-web3js',
-          link: '/integrations/libraries',
-        },
-      ],
-    },
-    {
-      text: 'Plus',
-      items: [
-        {
-          text: 'Overview',
-          link: '/plus/overview',
-        },
-        {
-          text: 'Boosts',
-          link: '/plus/boosts',
+          link: '/wallet/libraries',
         },
       ],
     },
