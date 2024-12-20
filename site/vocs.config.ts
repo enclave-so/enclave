@@ -31,7 +31,7 @@ export default defineConfig({
       link: '/getting-started',
     },
     {
-      text: 'Embedded Wallet API (wallet)',
+      text: 'Embedded Wallet (wallet)',
       items: [
         {
           text: 'Overview',
@@ -61,17 +61,29 @@ export default defineConfig({
       ],
     },
     {
-      text: 'Legal & Policies',
-      items: [
-        {
-          text: 'Terms of Service',
-          link: '/other/tos',
-        },
-        {
-          text: 'Privacy Policy',
-          link: '/other/privacy',
-        },
-      ],
+      text: 'Sponsored Transactions (sponsored)',
+      link: '/sponsored/overview',
     },
+    {
+      text: 'Batched Transactions (batched)',
+      link: '/batched',
+    },
+    {
+      text: 'Tokens metadata (md)',
+      link: '/md',
+    },
+    // {
+    //   text: 'Legal & Policies',
+    //   items: [
+    //     {
+    //       text: 'Terms of Service',
+    //       link: '/other/tos',
+    //     },
+    //     {
+    //       text: 'Privacy Policy',
+    //       link: '/other/privacy',
+    //     },
+    //   ],
+    // },
   ],
 })
